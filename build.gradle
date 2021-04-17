@@ -1,7 +1,7 @@
 import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'fabric-loom' version '0.7-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -58,7 +58,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
-    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation 'com.github.2No2Name:McTester:v0.2.0'
 }
 
@@ -67,12 +67,14 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include "fabric.mod.json"
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
 
         expand "version": project.version
     }
 
     from(sourceSets.main.resources.srcDirs) {
         exclude "fabric.mod.json"
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE // allow duplicates
     }
 }
 
